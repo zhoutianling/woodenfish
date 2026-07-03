@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("../doc/woodenfish.jks")
+            storePassword = "123456"
+            keyAlias = "key0"
+            keyPassword = "123456"
+        }
+    }
     namespace = "com.zero.woodenfish"
     compileSdk {
         version = release(36) {

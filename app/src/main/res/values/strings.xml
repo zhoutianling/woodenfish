@@ -16,9 +16,13 @@
     <string name="haptic_feedback">震动反馈</string>
     <string name="soft_haptic">轻触感</string>
     <string name="auto_tap">自动敲击</string>
+    <string name="auto_tap_notification_channel_name">自动敲击</string>
+    <string name="auto_tap_notification_title">自动敲击进行中</string>
+    <string name="auto_tap_notification_text">今日已敲击 %1$d 次</string>
     <string name="immersive_display">沉浸显示</string>
     <string name="hide_status_bar">隐藏状态栏</string>
     <string name="auto_interval">自动敲击间隔</string>
+    <string name="stop_auto_tap">停止</string>
     <string name="clear_today">清空今日记录</string>
     <string name="weekly_practice">本周修行</string>
     <string name="current_data">当前数据</string>

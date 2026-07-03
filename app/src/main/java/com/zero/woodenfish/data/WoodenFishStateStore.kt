@@ -2,12 +2,12 @@ package com.zero.woodenfish.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import com.zero.woodenfish.model.TapSource
 import com.zero.woodenfish.model.WoodenFishState
 import java.time.LocalDate
 import java.time.temporal.WeekFields
 import java.util.Locale
-import androidx.core.content.edit
 
 class WoodenFishStateStore(
     context: Context,
@@ -22,7 +22,7 @@ class WoodenFishStateStore(
     }
 
     fun recordTap(state: WoodenFishState, source: TapSource): WoodenFishState {
-        val currentState = rolloverIfNeeded(state)
+        val currentState = rolloverIfNeeded(readState()).copy(selectedTab = state.selectedTab)
         val today = currentDate()
         val todayKey = today.toString()
         val newStreakDays = calculateStreakDays(currentState.streakDays, today)
@@ -47,7 +47,7 @@ class WoodenFishStateStore(
     }
 
     fun clearToday(state: WoodenFishState): WoodenFishState {
-        val currentState = rolloverIfNeeded(state)
+        val currentState = rolloverIfNeeded(readState()).copy(selectedTab = state.selectedTab)
         val nextState = currentState.copy(
             todayCount = 0,
             weekCount = (currentState.weekCount - currentState.todayCount).coerceAtLeast(0),
@@ -66,25 +66,25 @@ class WoodenFishStateStore(
     }
 
     fun setAutoTapEnabled(state: WoodenFishState, enabled: Boolean): WoodenFishState {
-        return state.copy(autoTapEnabled = enabled).also {
-            preferences.edit().putBoolean(KEY_AUTO_ENABLED, enabled).apply()
+        return rolloverIfNeeded(readState()).copy(selectedTab = state.selectedTab, autoTapEnabled = enabled).also {
+            preferences.edit { putBoolean(KEY_AUTO_ENABLED, enabled) }
         }
     }
 
     fun setSoundEnabled(state: WoodenFishState, enabled: Boolean): WoodenFishState {
-        return state.copy(soundEnabled = enabled).also {
+        return rolloverIfNeeded(readState()).copy(selectedTab = state.selectedTab, soundEnabled = enabled).also {
             preferences.edit().putBoolean(KEY_SOUND_ENABLED, enabled).apply()
         }
     }
 
     fun setHapticEnabled(state: WoodenFishState, enabled: Boolean): WoodenFishState {
-        return state.copy(hapticEnabled = enabled).also {
+        return rolloverIfNeeded(readState()).copy(selectedTab = state.selectedTab, hapticEnabled = enabled).also {
             preferences.edit().putBoolean(KEY_HAPTIC_ENABLED, enabled).apply()
         }
     }
 
     fun setImmersiveEnabled(state: WoodenFishState, enabled: Boolean): WoodenFishState {
-        return state.copy(immersiveEnabled = enabled).also {
+        return rolloverIfNeeded(readState()).copy(selectedTab = state.selectedTab, immersiveEnabled = enabled).also {
             preferences.edit().putBoolean(KEY_IMMERSIVE_ENABLED, enabled).apply()
         }
     }
@@ -94,7 +94,10 @@ class WoodenFishStateStore(
             WoodenFishState.MIN_AUTO_TAP_INTERVAL_MS,
             WoodenFishState.MAX_AUTO_TAP_INTERVAL_MS
         )
-        return state.copy(autoTapIntervalMs = boundedIntervalMs).also {
+        return rolloverIfNeeded(readState()).copy(
+            selectedTab = state.selectedTab,
+            autoTapIntervalMs = boundedIntervalMs
+        ).also {
             preferences.edit().putLong(KEY_INTERVAL_MS, boundedIntervalMs).apply()
         }
     }

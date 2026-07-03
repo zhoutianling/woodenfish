@@ -1,6 +1,11 @@
 package com.zero.woodenfish
 
 import android.app.Application
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,16 +14,21 @@ import com.zero.woodenfish.model.TapSource
 import com.zero.woodenfish.model.WoodenFishState
 import com.zero.woodenfish.model.WoodenFishTab
 import com.zero.woodenfish.model.WoodenFishUiEvent
-import com.zero.woodenfish.scheduler.AutoTapScheduler
+import com.zero.woodenfish.service.AutoTapForegroundService
 
 class WoodenFishViewModel(application: Application) : AndroidViewModel(application) {
+    private val appContext = application.applicationContext
     private val stateStore = WoodenFishStateStore(application)
-    private val autoTapScheduler = AutoTapScheduler(
-        intervalMs = { currentState.autoTapIntervalMs },
-        onTick = { recordTap(TapSource.AUTO) }
-    )
     private val mutableState = MutableLiveData(stateStore.load())
     private val mutableEvents = MutableLiveData<WoodenFishUiEvent>()
+    private val autoTapServiceReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            refreshStateFromStore()
+            if (intent.action == AutoTapForegroundService.ACTION_AUTO_TAP_RECORDED) {
+                emitTapFeedback(soundEnabled = false, hapticEnabled = false)
+            }
+        }
+    }
     private var nextEventId = 0L
 
     val state: LiveData<WoodenFishState> = mutableState
@@ -26,14 +36,19 @@ class WoodenFishViewModel(application: Application) : AndroidViewModel(applicati
     val latestEventId: Long
         get() = nextEventId
 
+    init {
+        registerAutoTapServiceReceiver()
+    }
+
     fun onVisible() {
         if (currentState.autoTapEnabled) {
-            autoTapScheduler.start()
+            AutoTapForegroundService.start(appContext)
+            refreshStateFromStore()
         }
     }
 
     fun onHidden() {
-        autoTapScheduler.stop()
+        refreshStateFromStore()
     }
 
     fun onTabSelected(tab: WoodenFishTab) {
@@ -52,14 +67,18 @@ class WoodenFishViewModel(application: Application) : AndroidViewModel(applicati
         val nextState = stateStore.setAutoTapEnabled(currentState, enabled)
         updateState(nextState)
         if (enabled) {
-            autoTapScheduler.restart()
+            AutoTapForegroundService.start(appContext)
         } else {
-            autoTapScheduler.stop()
+            AutoTapForegroundService.stop(appContext)
         }
     }
 
     fun onSoundEnabledChanged(enabled: Boolean) {
-        updateState(stateStore.setSoundEnabled(currentState, enabled))
+        val nextState = stateStore.setSoundEnabled(currentState, enabled)
+        updateState(nextState)
+        if (nextState.autoTapEnabled) {
+            AutoTapForegroundService.refresh(appContext)
+        }
     }
 
     fun onHapticEnabledChanged(enabled: Boolean) {
@@ -74,22 +93,52 @@ class WoodenFishViewModel(application: Application) : AndroidViewModel(applicati
         val nextState = stateStore.setAutoTapInterval(currentState, intervalMs)
         updateState(nextState)
         if (nextState.autoTapEnabled) {
-            autoTapScheduler.restart()
+            AutoTapForegroundService.refresh(appContext)
+        }
+    }
+
+    fun onNotificationPermissionGranted() {
+        if (currentState.autoTapEnabled) {
+            AutoTapForegroundService.refresh(appContext)
         }
     }
 
     override fun onCleared() {
-        autoTapScheduler.stop()
+        appContext.unregisterReceiver(autoTapServiceReceiver)
         super.onCleared()
     }
 
     private fun recordTap(source: TapSource) {
         val nextState = stateStore.recordTap(currentState, source)
         updateState(nextState)
-        mutableEvents.value = WoodenFishUiEvent.TapFeedback(
-            id = ++nextEventId,
+        emitTapFeedback(
             soundEnabled = nextState.soundEnabled,
             hapticEnabled = nextState.hapticEnabled
+        )
+    }
+
+    private fun registerAutoTapServiceReceiver() {
+        val filter = IntentFilter().apply {
+            addAction(AutoTapForegroundService.ACTION_AUTO_TAP_RECORDED)
+            addAction(AutoTapForegroundService.ACTION_STATE_CHANGED)
+        }
+        ContextCompat.registerReceiver(
+            appContext,
+            autoTapServiceReceiver,
+            filter,
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
+    }
+
+    private fun refreshStateFromStore() {
+        updateState(stateStore.load().copy(selectedTab = currentState.selectedTab))
+    }
+
+    private fun emitTapFeedback(soundEnabled: Boolean, hapticEnabled: Boolean) {
+        mutableEvents.value = WoodenFishUiEvent.TapFeedback(
+            id = ++nextEventId,
+            soundEnabled = soundEnabled,
+            hapticEnabled = hapticEnabled
         )
     }
 
