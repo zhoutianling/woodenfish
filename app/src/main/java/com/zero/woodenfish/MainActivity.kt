@@ -23,7 +23,7 @@ import com.zero.woodenfish.feedback.HapticFeedbackPlayer
 import com.zero.woodenfish.media.TapSoundPlayer
 import com.zero.woodenfish.model.WoodenFishTab
 import com.zero.woodenfish.model.WoodenFishUiEvent
-import com.zero.woodenfish.ui.extension.dpToPx
+import com.zero.woodenfish.ui.extension.disableAutomaticSystemInsets
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: WoodenFishViewModel by viewModels()
@@ -70,11 +70,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun configureInsets() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        binding.bottomNavigation.disableAutomaticSystemInsets()
+
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             binding.navHostFragment.setPadding(0, bars.top, 0, 0)
-            binding.bottomNavigation.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                bottomMargin = bars.bottom + dpToPx(BOTTOM_NAVIGATION_BOTTOM_MARGIN_DP)
+            binding.systemNavigationBarSpacer.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                height = bars.bottom
             }
             insets
         }
@@ -165,9 +167,5 @@ class MainActivity : AppCompatActivity() {
                 restoreState = true
             }
         )
-    }
-
-    private companion object {
-        const val BOTTOM_NAVIGATION_BOTTOM_MARGIN_DP = 16
     }
 }

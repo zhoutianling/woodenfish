@@ -16,7 +16,7 @@
         <item name="cardCornerRadius">22dp</item>
     </style>
 
-    <style name="TextAppearance.WoodenFish.BottomNavigation" parent="TextAppearance.MaterialComponents.Caption">
+    <style name="TextAppearance.WoodenFish.BottomNavigation" parent="TextAppearance.Material3.LabelMedium">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/bottom_navigation_label_text_size</item>
     </style>

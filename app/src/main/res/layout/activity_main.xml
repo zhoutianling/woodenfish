@@ -25,21 +25,31 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
+        style="@style/Widget.Material3.BottomNavigationView"
         android:layout_width="0dp"
-        android:layout_height="@dimen/bottom_navigation_height"
-        android:layout_marginHorizontal="@dimen/bottom_navigation_margin_horizontal"
-        android:layout_marginBottom="@dimen/bottom_navigation_margin_bottom"
-        android:background="@drawable/bg_bottom_nav"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        app:elevation="0dp"
+        app:itemActiveIndicatorStyle="@null"
         app:itemIconSize="@dimen/bottom_navigation_item_icon_size"
         app:itemIconTint="@color/selector_bottom_navigation_item_tint"
         app:itemHorizontalTranslationEnabled="false"
-        app:itemRippleColor="@color/primary_button_ripple"
+        app:itemRippleColor="@android:color/transparent"
         app:itemTextAppearanceActive="@style/TextAppearance.WoodenFish.BottomNavigation"
         app:itemTextAppearanceInactive="@style/TextAppearance.WoodenFish.BottomNavigation"
         app:itemTextColor="@color/selector_bottom_navigation_item_tint"
         app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/system_navigation_bar_spacer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bottom_navigation" />
+
+    <View
+        android:id="@+id/system_navigation_bar_spacer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/colorSurface"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
