@@ -102,8 +102,7 @@
                 android:layout_gravity="center"
                 android:contentDescription="@string/app_name"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_wooden_fish"
-                app:tint="@color/fish_symbol_tint" />
+                android:src="@drawable/ic_wooden_fish" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/merit_text"
