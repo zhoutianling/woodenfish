@@ -158,6 +158,7 @@
                     android:layout_height="wrap_content"
                     android:minWidth="0dp"
                     android:padding="0dp"
+                    android:saveEnabled="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/auto_status_text"
                     app:layout_constraintHorizontal_chainStyle="packed"

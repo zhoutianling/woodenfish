@@ -67,7 +67,7 @@ class WoodenFishStateStore(
 
     fun setAutoTapEnabled(state: WoodenFishState, enabled: Boolean): WoodenFishState {
         return rolloverIfNeeded(readState()).copy(selectedTab = state.selectedTab, autoTapEnabled = enabled).also {
-            preferences.edit { putBoolean(KEY_AUTO_ENABLED, enabled) }
+            preferences.edit(commit = true) { putBoolean(KEY_AUTO_ENABLED, enabled) }
         }
     }
 

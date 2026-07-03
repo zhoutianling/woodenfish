@@ -12,7 +12,14 @@
     <dimen name="chip_height">46dp</dimen>
     <dimen name="metric_card_height">58dp</dimen>
     <dimen name="settings_row_height">64dp</dimen>
+    <dimen name="bottom_navigation_margin_horizontal">24dp</dimen>
+    <dimen name="bottom_navigation_margin_bottom">16dp</dimen>
+    <dimen name="bottom_navigation_corner_radius">28dp</dimen>
     <dimen name="bottom_navigation_item_icon_size">30dp</dimen>
+    <dimen name="bottom_navigation_active_indicator_width">64dp</dimen>
+    <dimen name="bottom_navigation_active_indicator_height">32dp</dimen>
+    <dimen name="bottom_navigation_active_indicator_margin_horizontal">4dp</dimen>
+    <dimen name="bottom_navigation_active_indicator_label_padding">8dp</dimen>
     <dimen name="title_text_size">20sp</dimen>
     <dimen name="label_text_size">13sp</dimen>
     <dimen name="body_text_size">14sp</dimen>

@@ -20,4 +20,12 @@
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/bottom_navigation_label_text_size</item>
     </style>
+
+    <style name="Widget.WoodenFish.BottomNavigation.ActiveIndicator" parent="">
+        <item name="android:width">@dimen/bottom_navigation_active_indicator_width</item>
+        <item name="android:height">@dimen/bottom_navigation_active_indicator_height</item>
+        <item name="marginHorizontal">@dimen/bottom_navigation_active_indicator_margin_horizontal</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Material3.NavigationBarView.ActiveIndicator</item>
+        <item name="android:color">@color/bottom_navigation_active_indicator</item>
+    </style>
 </resources>
