@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tap_fragment"
+        android:icon="@drawable/ic_bottom_nav_wooden_fish"
+        android:title="@string/tab_tap" />
+
+    <item
+        android:id="@+id/record_fragment"
+        android:icon="@drawable/ic_bottom_nav_record"
+        android:title="@string/tab_record" />
+
+    <item
+        android:id="@+id/settings_fragment"
+        android:icon="@drawable/ic_bottom_nav_settings"
+        android:title="@string/tab_settings" />
+</menu>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="app_background_start">#FF151515</color>
+    <color name="app_background_center">#FF0E0E0E</color>
+    <color name="app_background_end">#FF000000</color>
+    <color name="ink">#FF050505</color>
+    <color name="ink_soft">#FF101010</color>
+    <color name="ink_panel">#FF151515</color>
+    <color name="line_soft">#FF2A2A2A</color>
+    <color name="text_primary">#FFF4F4F4</color>
+    <color name="text_secondary">#FF9A9A9A</color>
+    <color name="text_muted">#FF6F6F6F</color>
+    <color name="accent_quiet">#FFF1F1F1</color>
+    <color name="accent_on">#FF050505</color>
+    <color name="fish_symbol_tint">#FFFFFFFF</color>
+    <color name="fish_orbit_fill">#10000000</color>
+    <color name="fish_orbit_stroke">#26FFFFFF</color>
+    <color name="primary_button_ripple">#22000000</color>
+    <color name="slider_halo">#22FFFFFF</color>
+</resources>

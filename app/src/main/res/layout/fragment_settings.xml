@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:overScrollMode="never">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/screen_horizontal_padding"
+        android:paddingTop="@dimen/page_top_padding"
+        android:paddingBottom="@dimen/page_bottom_padding">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/settings_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/settings_title"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/title_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/settings_subtitle_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/section_top_spacing"
+            android:text="@string/sound_and_rhythm"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/label_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_title_text" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/sound_settings_card"
+            style="@style/Widget.WoodenFish.Card.Panel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/settings_row_height"
+            android:layout_marginTop="@dimen/spacing_32"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_subtitle_text">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/spacing_20">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/sound_title_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/sound_effect"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/settings_title_text_size"
+                    app:layout_constraintBottom_toTopOf="@id/sound_summary_text"
+                    app:layout_constraintEnd_toStartOf="@id/sound_switch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/sound_summary_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2"
+                    android:text="@string/wooden_fish_sound"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/settings_summary_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/sound_switch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sound_title_text" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/sound_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:thumbTint="@color/selector_switch_thumb_tint"
+                    app:trackTint="@color/selector_switch_track_tint" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/haptic_settings_card"
+            style="@style/Widget.WoodenFish.Card.Panel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/settings_row_height"
+            android:layout_marginTop="@dimen/spacing_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sound_settings_card">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/spacing_20">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/haptic_title_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/haptic_feedback"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/settings_title_text_size"
+                    app:layout_constraintBottom_toTopOf="@id/haptic_summary_text"
+                    app:layout_constraintEnd_toStartOf="@id/haptic_switch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/haptic_summary_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2"
+                    android:text="@string/soft_haptic"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/settings_summary_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/haptic_switch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/haptic_title_text" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/haptic_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:thumbTint="@color/selector_switch_thumb_tint"
+                    app:trackTint="@color/selector_switch_track_tint" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/auto_settings_card"
+            style="@style/Widget.WoodenFish.Card.Panel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/settings_row_height"
+            android:layout_marginTop="@dimen/spacing_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/haptic_settings_card">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/spacing_20">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/auto_settings_title_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/auto_tap"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/settings_title_text_size"
+                    app:layout_constraintBottom_toTopOf="@id/settings_auto_summary_text"
+                    app:layout_constraintEnd_toStartOf="@id/settings_auto_switch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/settings_auto_summary_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/settings_summary_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/settings_auto_switch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/auto_settings_title_text"
+                    tools:text="@string/preview_interval" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/settings_auto_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:thumbTint="@color/selector_switch_thumb_tint"
+                    app:trackTint="@color/selector_switch_track_tint" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/immersive_settings_card"
+            style="@style/Widget.WoodenFish.Card.Panel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/settings_row_height"
+            android:layout_marginTop="@dimen/spacing_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/auto_settings_card">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/spacing_20">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/immersive_title_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/immersive_display"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/settings_title_text_size"
+                    app:layout_constraintBottom_toTopOf="@id/immersive_summary_text"
+                    app:layout_constraintEnd_toStartOf="@id/immersive_switch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/immersive_summary_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2"
+                    android:text="@string/hide_status_bar"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/settings_summary_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/immersive_switch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/immersive_title_text" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/immersive_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:thumbTint="@color/selector_switch_thumb_tint"
+                    app:trackTint="@color/selector_switch_track_tint" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/auto_interval_label_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_34"
+            android:text="@string/auto_interval"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/label_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/immersive_settings_card" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/interval_slider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_14"
+            android:stepSize="0.5"
+            android:valueFrom="0.5"
+            android:valueTo="2.0"
+            app:haloColor="@color/slider_halo"
+            app:labelBehavior="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/auto_interval_label_text"
+            app:thumbColor="@color/accent_quiet"
+            app:trackColorActive="@color/accent_quiet"
+            app:trackColorInactive="@color/line_soft" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/interval_value_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/body_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/interval_slider"
+            tools:text="@string/preview_interval_scale" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

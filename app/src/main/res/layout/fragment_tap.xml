@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:overScrollMode="never">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/screen_horizontal_padding"
+        android:paddingTop="@dimen/page_top_padding"
+        android:paddingBottom="@dimen/page_bottom_padding">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tap_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/app_name"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/title_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/today_label_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/section_top_spacing"
+            android:text="@string/today_taps"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/label_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tap_title_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/today_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:includeFontPadding="false"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/counter_large_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/today_label_text"
+            tools:text="@string/preview_today_count" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/merit_subtitle_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:text="@string/peace_merit"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/settings_title_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/today_count_text" />
+
+        <FrameLayout
+            android:id="@+id/fish_stage"
+            android:layout_width="@dimen/fish_stage_size"
+            android:layout_height="@dimen/fish_stage_size"
+            android:layout_marginTop="@dimen/spacing_24"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/merit_subtitle_text">
+
+            <View
+                android:layout_width="@dimen/fish_orbit_large_size"
+                android:layout_height="@dimen/fish_orbit_large_size"
+                android:layout_gravity="center"
+                android:alpha="0.45"
+                android:background="@drawable/bg_fish_orbit" />
+
+            <View
+                android:layout_width="@dimen/fish_orbit_small_size"
+                android:layout_height="@dimen/fish_orbit_small_size"
+                android:layout_gravity="center"
+                android:alpha="0.72"
+                android:background="@drawable/bg_fish_orbit" />
+
+            <com.zero.woodenfish.ui.widget.WoodenFishTapEffectView
+                android:id="@+id/tap_effect_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/fish_image"
+                android:layout_width="@dimen/fish_image_size"
+                android:layout_height="@dimen/fish_image_size"
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_wooden_fish_symbol"
+                app:tint="@color/fish_symbol_tint" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/merit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="@dimen/spacing_48"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:alpha="0"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/merit_plus"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/merit_text_size"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/manual_tap_button"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/primary_button_height"
+            android:layout_marginTop="@dimen/spacing_12"
+            android:backgroundTint="@color/accent_quiet"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/manual_tap"
+            android:textColor="@color/accent_on"
+            android:textSize="@dimen/button_text_size"
+            app:cornerRadius="28dp"
+            app:elevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fish_stage"
+            app:rippleColor="@color/primary_button_ripple" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/auto_chip"
+            style="@style/Widget.WoodenFish.Card.Chip"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/chip_height"
+            android:layout_marginTop="@dimen/spacing_16"
+            android:layout_marginEnd="@dimen/spacing_7"
+            app:layout_constraintEnd_toStartOf="@id/auto_interval_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/manual_tap_button">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/spacing_16">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/auto_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="0dp"
+                    android:padding="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/auto_status_text"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:thumbTint="@color/selector_switch_thumb_tint"
+                    app:trackTint="@color/selector_switch_track_tint" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/auto_status_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_8"
+                    android:text="@string/auto_off"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/body_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/auto_switch"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/auto_interval_card"
+            style="@style/Widget.WoodenFish.Card.Chip"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/chip_height"
+            android:layout_marginStart="@dimen/spacing_7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/auto_chip"
+            app:layout_constraintTop_toTopOf="@id/auto_chip">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/auto_interval_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/body_text_size"
+                tools:text="@string/preview_interval" />
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

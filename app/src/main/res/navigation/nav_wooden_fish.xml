@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_wooden_fish"
+    app:startDestination="@id/tap_fragment">
+
+    <fragment
+        android:id="@+id/tap_fragment"
+        android:name="com.zero.woodenfish.ui.fragment.TapFragment"
+        android:label="@string/tab_tap" />
+
+    <fragment
+        android:id="@+id/record_fragment"
+        android:name="com.zero.woodenfish.ui.fragment.RecordFragment"
+        android:label="@string/tab_record" />
+
+    <fragment
+        android:id="@+id/settings_fragment"
+        android:name="com.zero.woodenfish.ui.fragment.SettingsFragment"
+        android:label="@string/tab_settings" />
+</navigation>

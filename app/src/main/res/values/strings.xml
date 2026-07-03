@@ -27,7 +27,7 @@
     <string name="record_total_format">累计 %1$d</string>
     <string name="record_streak_format">连续 %1$d 天</string>
     <string name="record_auto_format">自动 %1$d 次</string>
-    <string name="seconds_short_format">%1$.1fs</string>
+    <string name="seconds_value_format">%1$.1f</string>
     <string name="interval_per_tap_format">%1$s 秒/次</string>
     <string name="current_interval_range_format">当前 %1$s · 0.5s - 2.0s</string>
     <string name="preview_today_count">108</string>

@@ -1,13 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Base.Theme.WoodenFish" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:fontFamily">sans</item>
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
         <item name="android:colorAccent">@color/accent_quiet</item>
         <item name="colorPrimary">@color/accent_quiet</item>
-        <item name="colorOnPrimary">@color/ink</item>
+        <item name="colorOnPrimary">@color/accent_on</item>
         <item name="colorSecondary">@color/accent_quiet</item>
         <item name="colorSurface">@color/ink_soft</item>
         <item name="colorOnSurface">@color/text_primary</item>
