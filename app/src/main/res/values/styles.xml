@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.WoodenFish" parent="" />
+    <style name="Widget.WoodenFish.Navigation" parent="" />
+
+    <style name="ShapeAppearance.WoodenFish" parent="" />
+    <style name="ShapeAppearance.WoodenFish.NavigationIndicator" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">18dp</item>
+    </style>
+
+    <style name="Widget.WoodenFish.Navigation.ActiveIndicator" parent="">
+        <item name="android:width">0dp</item>
+        <item name="android:height">0dp</item>
+        <item name="android:color">@android:color/transparent</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.WoodenFish.NavigationIndicator</item>
+    </style>
+</resources>
