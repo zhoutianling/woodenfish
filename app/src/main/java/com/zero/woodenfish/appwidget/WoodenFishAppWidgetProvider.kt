@@ -81,7 +81,7 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
     companion object {
         private const val ACTION_WIDGET_TAP = "com.zero.woodenfish.action.WIDGET_TAP"
         private const val REQUEST_CODE_WIDGET_TAP = 20
-        private const val WIDGET_TAP_RECOVERING_DELAY_MS = 80L
+        private const val WIDGET_TAP_RECOVERING_DELAY_MS = 70L
         private const val WIDGET_TAP_REST_DELAY_MS = 200L
         private val feedbackGeneration = AtomicInteger()
 

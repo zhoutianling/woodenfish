@@ -24,10 +24,10 @@
     <dimen name="widget_padding">12dp</dimen>
     <dimen name="widget_corner_radius">22dp</dimen>
     <dimen name="widget_fish_image_size">78dp</dimen>
-    <dimen name="widget_fish_pressed_image_size">66dp</dimen>
-    <dimen name="widget_fish_recovering_image_size">72dp</dimen>
-    <dimen name="widget_merit_pressed_text_margin_top">52dp</dimen>
-    <dimen name="widget_merit_recovering_text_margin_top">24dp</dimen>
+    <dimen name="widget_fish_pressed_image_size">67dp</dimen>
+    <dimen name="widget_fish_recovering_image_size">73dp</dimen>
+    <dimen name="widget_merit_pressed_text_margin_top">46dp</dimen>
+    <dimen name="widget_merit_recovering_text_margin_top">20dp</dimen>
     <dimen name="widget_merit_text_size">13sp</dimen>
     <dimen name="widget_count_group_margin_bottom">2dp</dimen>
     <dimen name="widget_count_label_text_size">10sp</dimen>
