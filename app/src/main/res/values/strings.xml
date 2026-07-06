@@ -44,4 +44,5 @@
     <string name="preview_interval_scale">0.5s   1.0s   2.0s</string>
     <string name="widget_wooden_fish_description">木鱼快捷敲击</string>
     <string name="widget_tap_content_description">点击敲击木鱼，今日 %1$d 次</string>
+    <string name="widget_today_count_label">今日次数</string>
 </resources>

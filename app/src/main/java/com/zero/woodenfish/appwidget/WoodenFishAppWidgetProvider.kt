@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.RemoteViews
 import com.zero.woodenfish.R
 import com.zero.woodenfish.broadcast.ACTION_WOODEN_FISH_STATE_CHANGED
+import com.zero.woodenfish.broadcast.sendWoodenFishStateChangedBroadcast
 import com.zero.woodenfish.broadcast.sendWoodenFishTapFeedbackBroadcast
 import com.zero.woodenfish.data.WoodenFishStateStore
 import com.zero.woodenfish.feedback.HapticFeedbackPlayer
@@ -39,6 +40,12 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
                 updateAllWidgets(context)
                 return
             }
+            Intent.ACTION_DATE_CHANGED,
+            Intent.ACTION_TIME_CHANGED,
+            Intent.ACTION_TIMEZONE_CHANGED -> {
+                refreshForCalendarChange(context)
+                return
+            }
         }
         super.onReceive(context, intent)
     }
@@ -53,7 +60,7 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
     private fun handleWidgetTap(context: Context, onFeedbackCompleted: () -> Unit) {
         val stateStore = WoodenFishStateStore(context)
         val nextState = stateStore.recordTap(stateStore.load(), TapSource.MANUAL)
-        showTapFeedback(context, nextState, onFeedbackCompleted)
+        renderTapFeedback(context, nextState, onFeedbackCompleted)
         playHapticFeedbackIfNeeded(context, nextState)
         playTapSoundIfNeeded(context, nextState)
         context.sendWoodenFishTapFeedbackBroadcast()
@@ -77,6 +84,12 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
         }
     }
 
+    private fun refreshForCalendarChange(context: Context) {
+        val state = WoodenFishStateStore(context).load()
+        updateAllWidgets(context, state)
+        context.sendWoodenFishStateChangedBroadcast()
+    }
+
     companion object {
         private const val ACTION_WIDGET_TAP = "com.zero.woodenfish.action.WIDGET_TAP"
         private const val REQUEST_CODE_WIDGET_TAP = 20
@@ -94,10 +107,10 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
             }
         }
 
-        private fun showTapFeedback(
+        fun renderTapFeedback(
             context: Context,
             state: WoodenFishState,
-            onFeedbackCompleted: () -> Unit
+            onFeedbackCompleted: () -> Unit = {}
         ) {
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val appWidgetIds = appWidgetManager.getAppWidgetIds(
@@ -157,8 +170,12 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
                     if (tapFrame == WidgetTapFrame.RELEASED) View.VISIBLE else View.INVISIBLE
                 )
                 setViewVisibility(
-                    R.id.widget_press_ring,
+                    R.id.widget_merit_pressed_text,
                     if (tapFrame == WidgetTapFrame.PRESSED) View.VISIBLE else View.INVISIBLE
+                )
+                setViewVisibility(
+                    R.id.widget_merit_released_text,
+                    if (tapFrame == WidgetTapFrame.RELEASED) View.VISIBLE else View.INVISIBLE
                 )
                 setContentDescription(
                     R.id.widget_root,

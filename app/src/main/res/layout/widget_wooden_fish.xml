@@ -7,14 +7,6 @@
     android:background="@drawable/bg_widget_wooden_fish"
     android:padding="@dimen/widget_padding">
 
-    <TextView
-        android:id="@+id/widget_press_ring"
-        android:layout_width="@dimen/widget_press_ring_size"
-        android:layout_height="@dimen/widget_press_ring_size"
-        android:layout_gravity="center"
-        android:background="@drawable/bg_widget_press_ring"
-        android:visibility="invisible" />
-
     <ImageView
         android:id="@+id/widget_fish_image"
         android:layout_width="@dimen/widget_fish_image_size"
@@ -50,17 +42,62 @@
         android:visibility="invisible" />
 
     <TextView
-        android:id="@+id/widget_count_text"
+        android:id="@+id/widget_merit_pressed_text"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/widget_count_badge_height"
-        android:layout_gravity="bottom|center_horizontal"
-        android:background="@drawable/bg_widget_count_badge"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="@dimen/widget_merit_pressed_text_margin_top"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:minWidth="@dimen/widget_count_badge_min_width"
-        android:paddingHorizontal="@dimen/widget_count_badge_padding_horizontal"
+        android:text="@string/merit_plus"
         android:textAlignment="center"
-        android:textColor="@color/accent_on"
-        android:textSize="@dimen/widget_count_text_size"
-        tools:text="8" />
+        android:textColor="@color/widget_on_background"
+        android:textSize="@dimen/widget_merit_text_size"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/widget_merit_released_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="@dimen/widget_merit_released_text_margin_top"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/merit_plus"
+        android:textAlignment="center"
+        android:textColor="@color/widget_on_background"
+        android:textSize="@dimen/widget_merit_text_size"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/widget_count_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/widget_count_group_margin_bottom"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/widget_today_count_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/widget_today_count_label"
+            android:textAlignment="center"
+            android:textColor="@color/widget_on_background"
+            android:textSize="@dimen/widget_count_label_text_size" />
+
+        <TextView
+            android:id="@+id/widget_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/widget_on_background"
+            android:textSize="@dimen/widget_count_text_size"
+            tools:text="8" />
+    </LinearLayout>
 </FrameLayout>

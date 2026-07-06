@@ -17,7 +17,8 @@
     <color name="fish_symbol_tint">#FFFFFFFF</color>
     <color name="fish_orbit_fill">#10000000</color>
     <color name="fish_orbit_stroke">#26FFFFFF</color>
-    <color name="widget_press_ring">#24171717</color>
+    <color name="widget_background">#FFACC3FF</color>
+    <color name="widget_on_background">#FFFFFFFF</color>
     <color name="bottom_navigation_active_indicator">#FF51495F</color>
     <color name="primary_button_ripple">#22000000</color>
     <color name="slider_halo">#22FFFFFF</color>

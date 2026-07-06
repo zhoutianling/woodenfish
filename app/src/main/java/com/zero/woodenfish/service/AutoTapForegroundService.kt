@@ -14,6 +14,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.zero.woodenfish.MainActivity
 import com.zero.woodenfish.R
+import com.zero.woodenfish.appwidget.WoodenFishAppWidgetProvider
 import com.zero.woodenfish.broadcast.sendWoodenFishStateChangedBroadcast
 import com.zero.woodenfish.data.WoodenFishStateStore
 import com.zero.woodenfish.media.TapSoundPlayer
@@ -92,8 +93,8 @@ class AutoTapForegroundService : Service() {
         if (nextState.soundEnabled) {
             tapSoundPlayer.play()
         }
+        WoodenFishAppWidgetProvider.renderTapFeedback(this, nextState)
         startInForeground(nextState)
-        sendWoodenFishStateChangedBroadcast()
         sendBroadcast(Intent(ACTION_AUTO_TAP_RECORDED).setPackage(packageName))
     }
 
