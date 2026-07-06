@@ -13,7 +13,6 @@ import android.view.View
 import android.widget.RemoteViews
 import com.zero.woodenfish.R
 import com.zero.woodenfish.broadcast.ACTION_WOODEN_FISH_STATE_CHANGED
-import com.zero.woodenfish.broadcast.sendWoodenFishStateChangedBroadcast
 import com.zero.woodenfish.broadcast.sendWoodenFishTapFeedbackBroadcast
 import com.zero.woodenfish.data.WoodenFishStateStore
 import com.zero.woodenfish.feedback.HapticFeedbackPlayer
@@ -59,8 +58,8 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
 
     private fun handleWidgetTap(context: Context, onFeedbackCompleted: () -> Unit) {
         val stateStore = WoodenFishStateStore(context)
-        val nextState = stateStore.recordTap(stateStore.load(), TapSource.MANUAL)
-        renderTapFeedback(context, nextState, onFeedbackCompleted)
+        val nextState = stateStore.recordTap(TapSource.MANUAL)
+        renderManualTapFeedback(context, nextState, onFeedbackCompleted)
         playHapticFeedbackIfNeeded(context, nextState)
         playTapSoundIfNeeded(context, nextState)
         context.sendWoodenFishTapFeedbackBroadcast()
@@ -87,7 +86,6 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
     private fun refreshForCalendarChange(context: Context) {
         val state = WoodenFishStateStore(context).load()
         updateAllWidgets(context, state)
-        context.sendWoodenFishStateChangedBroadcast()
     }
 
     companion object {
@@ -95,6 +93,7 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
         private const val REQUEST_CODE_WIDGET_TAP = 20
         private const val WIDGET_TAP_RELEASE_DELAY_MS = 88L
         private const val WIDGET_TAP_REST_DELAY_MS = 220L
+        private const val WIDGET_AUTO_TAP_REST_DELAY_MS = 144L
         private val feedbackGeneration = AtomicInteger()
 
         fun updateAllWidgets(context: Context, state: WoodenFishState = WoodenFishStateStore(context).load()) {
@@ -107,15 +106,13 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
             }
         }
 
-        fun renderTapFeedback(
+        fun renderManualTapFeedback(
             context: Context,
             state: WoodenFishState,
             onFeedbackCompleted: () -> Unit = {}
         ) {
             val appWidgetManager = AppWidgetManager.getInstance(context)
-            val appWidgetIds = appWidgetManager.getAppWidgetIds(
-                ComponentName(context, WoodenFishAppWidgetProvider::class.java)
-            )
+            val appWidgetIds = getAppWidgetIds(context)
             if (appWidgetIds.isEmpty()) {
                 onFeedbackCompleted()
                 return
@@ -139,14 +136,44 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
                 )
                 postDelayed(
                     {
-                        if (generation == feedbackGeneration.get()) {
-                            runCatching { updateAllWidgets(context.applicationContext, state) }
-                        }
+                        restoreWidgetsIfCurrent(context, state, generation)
                         onFeedbackCompleted()
                     },
                     WIDGET_TAP_REST_DELAY_MS
                 )
             }
+        }
+
+        fun renderAutoTapFeedback(context: Context, state: WoodenFishState) {
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val appWidgetIds = getAppWidgetIds(context)
+            if (appWidgetIds.isEmpty()) return
+
+            val generation = feedbackGeneration.incrementAndGet()
+            appWidgetManager.updateAppWidget(
+                appWidgetIds,
+                buildRemoteViews(context, state, WidgetTapFrame.PRESSED)
+            )
+            Handler(Looper.getMainLooper()).postDelayed(
+                { restoreWidgetsIfCurrent(context, state, generation) },
+                WIDGET_AUTO_TAP_REST_DELAY_MS
+            )
+        }
+
+        private fun restoreWidgetsIfCurrent(
+            context: Context,
+            state: WoodenFishState,
+            generation: Int
+        ) {
+            if (generation == feedbackGeneration.get()) {
+                runCatching { updateAllWidgets(context.applicationContext, state) }
+            }
+        }
+
+        private fun getAppWidgetIds(context: Context): IntArray {
+            return AppWidgetManager.getInstance(context).getAppWidgetIds(
+                ComponentName(context, WoodenFishAppWidgetProvider::class.java)
+            )
         }
 
         private fun buildRemoteViews(

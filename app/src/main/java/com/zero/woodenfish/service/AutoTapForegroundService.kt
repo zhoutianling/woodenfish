@@ -26,6 +26,7 @@ class AutoTapForegroundService : Service() {
     private lateinit var stateStore: WoodenFishStateStore
     private lateinit var tapSoundPlayer: TapSoundPlayer
     private lateinit var autoTapScheduler: AutoTapScheduler
+    private var latestNotificationUpdateTimeMs = 0L
 
     override fun onCreate() {
         super.onCreate()
@@ -89,16 +90,24 @@ class AutoTapForegroundService : Service() {
             return
         }
 
-        val nextState = stateStore.recordTap(currentState, TapSource.AUTO)
+        val nextState = stateStore.recordTap(TapSource.AUTO)
         if (nextState.soundEnabled) {
             tapSoundPlayer.play()
         }
-        WoodenFishAppWidgetProvider.renderTapFeedback(this, nextState)
-        startInForeground(nextState)
+        WoodenFishAppWidgetProvider.renderAutoTapFeedback(this, nextState)
+        startInForegroundIfNeeded(nextState)
         sendBroadcast(Intent(ACTION_AUTO_TAP_RECORDED).setPackage(packageName))
     }
 
+    private fun startInForegroundIfNeeded(state: WoodenFishState) {
+        val now = System.currentTimeMillis()
+        if (now - latestNotificationUpdateTimeMs < NOTIFICATION_UPDATE_INTERVAL_MS) return
+        latestNotificationUpdateTimeMs = now
+        startInForeground(state)
+    }
+
     private fun startInForeground(state: WoodenFishState) {
+        latestNotificationUpdateTimeMs = System.currentTimeMillis()
         val notification = buildNotification(state)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             startForeground(
@@ -162,6 +171,7 @@ class AutoTapForegroundService : Service() {
         private const val ACTION_STOP = "com.zero.woodenfish.action.STOP_AUTO_TAP"
         private const val NOTIFICATION_CHANNEL_ID = "auto_tap"
         private const val NOTIFICATION_ID = 108
+        private const val NOTIFICATION_UPDATE_INTERVAL_MS = 5_000L
         private const val REQUEST_CODE_OPEN_APP = 10
         private const val REQUEST_CODE_STOP = 11
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.zero.woodenfish.model.TapSource
+import com.zero.woodenfish.model.WoodenFishTab
 import com.zero.woodenfish.model.WoodenFishState
 import java.time.LocalDate
 import java.time.temporal.WeekFields
@@ -21,8 +22,18 @@ class WoodenFishStateStore(
         return rolloverIfNeeded(readState())
     }
 
+    fun recordTap(source: TapSource): WoodenFishState {
+        return recordTapInternal(source = source, selectedTab = null)
+    }
+
     fun recordTap(state: WoodenFishState, source: TapSource): WoodenFishState {
-        val currentState = rolloverIfNeeded(readState()).copy(selectedTab = state.selectedTab)
+        return recordTapInternal(source = source, selectedTab = state.selectedTab)
+    }
+
+    private fun recordTapInternal(source: TapSource, selectedTab: WoodenFishTab?): WoodenFishState {
+        val currentState = rolloverIfNeeded(readState()).let { state ->
+            selectedTab?.let { state.copy(selectedTab = it) } ?: state
+        }
         val today = currentDate()
         val todayKey = today.toString()
         val newStreakDays = calculateStreakDays(currentState.streakDays, today)
