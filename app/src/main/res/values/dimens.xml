@@ -20,6 +20,15 @@
     <dimen name="bottom_navigation_active_indicator_height">32dp</dimen>
     <dimen name="bottom_navigation_active_indicator_margin_horizontal">4dp</dimen>
     <dimen name="bottom_navigation_active_indicator_label_padding">8dp</dimen>
+    <dimen name="widget_min_size">110dp</dimen>
+    <dimen name="widget_padding">12dp</dimen>
+    <dimen name="widget_corner_radius">22dp</dimen>
+    <dimen name="widget_fish_image_size">78dp</dimen>
+    <dimen name="widget_count_badge_height">24dp</dimen>
+    <dimen name="widget_count_badge_min_width">40dp</dimen>
+    <dimen name="widget_count_badge_corner_radius">12dp</dimen>
+    <dimen name="widget_count_badge_padding_horizontal">10dp</dimen>
+    <dimen name="widget_count_text_size">13sp</dimen>
     <dimen name="title_text_size">20sp</dimen>
     <dimen name="label_text_size">13sp</dimen>
     <dimen name="body_text_size">14sp</dimen>

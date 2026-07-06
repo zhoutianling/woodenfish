@@ -9,6 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.zero.woodenfish.broadcast.ACTION_WOODEN_FISH_STATE_CHANGED
+import com.zero.woodenfish.broadcast.sendWoodenFishStateChangedBroadcast
 import com.zero.woodenfish.data.WoodenFishStateStore
 import com.zero.woodenfish.model.TapSource
 import com.zero.woodenfish.model.WoodenFishState
@@ -61,6 +63,7 @@ class WoodenFishViewModel(application: Application) : AndroidViewModel(applicati
 
     fun onClearTodayClicked() {
         updateState(stateStore.clearToday(currentState))
+        appContext.sendWoodenFishStateChangedBroadcast()
     }
 
     fun onAutoTapEnabledChanged(enabled: Boolean) {
@@ -111,6 +114,7 @@ class WoodenFishViewModel(application: Application) : AndroidViewModel(applicati
     private fun recordTap(source: TapSource) {
         val nextState = stateStore.recordTap(currentState, source)
         updateState(nextState)
+        appContext.sendWoodenFishStateChangedBroadcast()
         emitTapFeedback(
             soundEnabled = nextState.soundEnabled,
             hapticEnabled = nextState.hapticEnabled
@@ -120,7 +124,7 @@ class WoodenFishViewModel(application: Application) : AndroidViewModel(applicati
     private fun registerAutoTapServiceReceiver() {
         val filter = IntentFilter().apply {
             addAction(AutoTapForegroundService.ACTION_AUTO_TAP_RECORDED)
-            addAction(AutoTapForegroundService.ACTION_STATE_CHANGED)
+            addAction(ACTION_WOODEN_FISH_STATE_CHANGED)
         }
         ContextCompat.registerReceiver(
             appContext,

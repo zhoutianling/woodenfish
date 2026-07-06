@@ -71,7 +71,6 @@
             android:layout_marginTop="@dimen/spacing_24"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/merit_subtitle_text">

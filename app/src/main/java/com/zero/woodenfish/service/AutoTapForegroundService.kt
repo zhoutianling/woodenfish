@@ -14,6 +14,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.zero.woodenfish.MainActivity
 import com.zero.woodenfish.R
+import com.zero.woodenfish.broadcast.sendWoodenFishStateChangedBroadcast
 import com.zero.woodenfish.data.WoodenFishStateStore
 import com.zero.woodenfish.media.TapSoundPlayer
 import com.zero.woodenfish.model.TapSource
@@ -69,13 +70,13 @@ class AutoTapForegroundService : Service() {
         }
         startInForeground(state)
         autoTapScheduler.restart()
-        broadcastStateChanged()
+        sendWoodenFishStateChangedBroadcast()
     }
 
     private fun stopAutoTap() {
         autoTapScheduler.stop()
         stateStore.setAutoTapEnabled(stateStore.load(), false)
-        broadcastStateChanged()
+        sendWoodenFishStateChangedBroadcast()
         stopForeground(STOP_FOREGROUND_REMOVE)
         stopSelf()
     }
@@ -92,6 +93,7 @@ class AutoTapForegroundService : Service() {
             tapSoundPlayer.play()
         }
         startInForeground(nextState)
+        sendWoodenFishStateChangedBroadcast()
         sendBroadcast(Intent(ACTION_AUTO_TAP_RECORDED).setPackage(packageName))
     }
 
@@ -152,13 +154,8 @@ class AutoTapForegroundService : Service() {
         getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
     }
 
-    private fun broadcastStateChanged() {
-        sendBroadcast(Intent(ACTION_STATE_CHANGED).setPackage(packageName))
-    }
-
     companion object {
         const val ACTION_AUTO_TAP_RECORDED = "com.zero.woodenfish.action.AUTO_TAP_RECORDED"
-        const val ACTION_STATE_CHANGED = "com.zero.woodenfish.action.STATE_CHANGED"
         private const val ACTION_START = "com.zero.woodenfish.action.START_AUTO_TAP"
         private const val ACTION_REFRESH = "com.zero.woodenfish.action.REFRESH_AUTO_TAP"
         private const val ACTION_STOP = "com.zero.woodenfish.action.STOP_AUTO_TAP"

@@ -30,6 +30,18 @@
             android:name=".service.AutoTapForegroundService"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback" />
+        <receiver
+            android:name=".appwidget.WoodenFishAppWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.zero.woodenfish.action.STATE_CHANGED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_wooden_fish_info" />
+        </receiver>
     </application>
 
 </manifest>
