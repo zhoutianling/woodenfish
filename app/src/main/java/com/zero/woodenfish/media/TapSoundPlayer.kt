@@ -5,11 +5,11 @@ import android.media.AudioAttributes
 import android.media.SoundPool
 import com.zero.woodenfish.R
 
-class TapSoundPlayer(context: Context) {
-    private val appContext = context.applicationContext
-    private var soundReady = false
+class TapSoundPlayer private constructor(context: Context) {
     private val soundPool: SoundPool
     private val soundId: Int
+    private var soundReady = false
+    private var pendingPlay = false
 
     init {
         val attributes = AudioAttributes.Builder()
@@ -21,26 +21,44 @@ class TapSoundPlayer(context: Context) {
             .setMaxStreams(MAX_STREAMS)
             .build()
         soundPool.setOnLoadCompleteListener { _, sampleId, status ->
-            soundReady = sampleId == soundId && status == LOAD_SUCCESS
+            if (sampleId == soundId && status == LOAD_SUCCESS) {
+                soundReady = true
+                if (pendingPlay) {
+                    pendingPlay = false
+                    doPlay()
+                }
+            }
         }
-        soundId = soundPool.load(appContext, R.raw.muyu2, SOUND_PRIORITY)
+        soundId = soundPool.load(context.applicationContext, R.raw.muyu2, SOUND_PRIORITY)
     }
 
     fun play() {
-        if (!soundReady) return
+        if (!soundReady) {
+            pendingPlay = true
+            return
+        }
+        doPlay()
+    }
+
+    private fun doPlay() {
         soundPool.play(soundId, VOLUME_FULL, VOLUME_FULL, SOUND_PRIORITY, NO_LOOP, PLAYBACK_RATE_NORMAL)
     }
 
-    fun release() {
-        soundPool.release()
-    }
+    companion object {
+        private const val MAX_STREAMS = 4
+        private const val LOAD_SUCCESS = 0
+        private const val SOUND_PRIORITY = 1
+        private const val NO_LOOP = 0
+        private const val VOLUME_FULL = 1f
+        private const val PLAYBACK_RATE_NORMAL = 1f
 
-    private companion object {
-        const val MAX_STREAMS = 4
-        const val LOAD_SUCCESS = 0
-        const val SOUND_PRIORITY = 1
-        const val NO_LOOP = 0
-        const val VOLUME_FULL = 1f
-        const val PLAYBACK_RATE_NORMAL = 1f
+        @Volatile
+        private var instance: TapSoundPlayer? = null
+
+        fun getInstance(context: Context): TapSoundPlayer {
+            return instance ?: synchronized(this) {
+                instance ?: TapSoundPlayer(context.applicationContext).also { instance = it }
+            }
+        }
     }
 }

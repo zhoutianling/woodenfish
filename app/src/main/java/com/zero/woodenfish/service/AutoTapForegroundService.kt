@@ -31,7 +31,7 @@ class AutoTapForegroundService : Service() {
     override fun onCreate() {
         super.onCreate()
         stateStore = WoodenFishStateStore(this)
-        tapSoundPlayer = TapSoundPlayer(this)
+        tapSoundPlayer = TapSoundPlayer.getInstance(this)
         autoTapScheduler = AutoTapScheduler(
             intervalMs = { stateStore.load().autoTapIntervalMs },
             onTick = ::recordAutoTap
@@ -60,7 +60,6 @@ class AutoTapForegroundService : Service() {
 
     override fun onDestroy() {
         autoTapScheduler.stop()
-        tapSoundPlayer.release()
         super.onDestroy()
     }
 

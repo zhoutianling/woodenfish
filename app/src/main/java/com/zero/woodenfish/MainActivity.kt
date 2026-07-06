@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        soundPlayer = TapSoundPlayer(this)
+        soundPlayer = TapSoundPlayer.getInstance(this)
         hapticFeedbackPlayer = HapticFeedbackPlayer(this)
         configureInsets()
         configureNavigation()
@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        soundPlayer.release()
         super.onDestroy()
     }
 
