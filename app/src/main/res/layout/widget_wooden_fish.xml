@@ -7,6 +7,14 @@
     android:background="@drawable/bg_widget_wooden_fish"
     android:padding="@dimen/widget_padding">
 
+    <TextView
+        android:id="@+id/widget_press_ring"
+        android:layout_width="@dimen/widget_press_ring_size"
+        android:layout_height="@dimen/widget_press_ring_size"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_widget_press_ring"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/widget_fish_image"
         android:layout_width="@dimen/widget_fish_image_size"
@@ -16,6 +24,30 @@
         android:contentDescription="@string/app_name"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_wooden_fish" />
+
+    <ImageView
+        android:id="@+id/widget_fish_pressed_image"
+        android:layout_width="@dimen/widget_fish_pressed_image_size"
+        android:layout_height="@dimen/widget_fish_pressed_image_size"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:alpha="0.9"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_wooden_fish"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/widget_fish_released_image"
+        android:layout_width="@dimen/widget_fish_released_image_size"
+        android:layout_height="@dimen/widget_fish_released_image_size"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:alpha="0.96"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_wooden_fish"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/widget_count_text"

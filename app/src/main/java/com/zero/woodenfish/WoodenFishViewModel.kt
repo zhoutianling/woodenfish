@@ -10,6 +10,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.zero.woodenfish.broadcast.ACTION_WOODEN_FISH_STATE_CHANGED
+import com.zero.woodenfish.broadcast.ACTION_WOODEN_FISH_TAP_FEEDBACK
 import com.zero.woodenfish.broadcast.sendWoodenFishStateChangedBroadcast
 import com.zero.woodenfish.data.WoodenFishStateStore
 import com.zero.woodenfish.model.TapSource
@@ -26,8 +27,11 @@ class WoodenFishViewModel(application: Application) : AndroidViewModel(applicati
     private val autoTapServiceReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             refreshStateFromStore()
-            if (intent.action == AutoTapForegroundService.ACTION_AUTO_TAP_RECORDED) {
-                emitTapFeedback(soundEnabled = false, hapticEnabled = false)
+            when (intent.action) {
+                AutoTapForegroundService.ACTION_AUTO_TAP_RECORDED,
+                ACTION_WOODEN_FISH_TAP_FEEDBACK -> {
+                    emitTapFeedback(soundEnabled = false, hapticEnabled = false)
+                }
             }
         }
     }
@@ -125,6 +129,7 @@ class WoodenFishViewModel(application: Application) : AndroidViewModel(applicati
         val filter = IntentFilter().apply {
             addAction(AutoTapForegroundService.ACTION_AUTO_TAP_RECORDED)
             addAction(ACTION_WOODEN_FISH_STATE_CHANGED)
+            addAction(ACTION_WOODEN_FISH_TAP_FEEDBACK)
         }
         ContextCompat.registerReceiver(
             appContext,
@@ -135,7 +140,8 @@ class WoodenFishViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     private fun refreshStateFromStore() {
-        updateState(stateStore.load().copy(selectedTab = currentState.selectedTab))
+        val nextState = stateStore.load().copy(selectedTab = currentState.selectedTab)
+        updateState(nextState)
     }
 
     private fun emitTapFeedback(soundEnabled: Boolean, hapticEnabled: Boolean) {

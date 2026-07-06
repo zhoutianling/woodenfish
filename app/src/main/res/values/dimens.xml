@@ -24,6 +24,9 @@
     <dimen name="widget_padding">12dp</dimen>
     <dimen name="widget_corner_radius">22dp</dimen>
     <dimen name="widget_fish_image_size">78dp</dimen>
+    <dimen name="widget_fish_pressed_image_size">72dp</dimen>
+    <dimen name="widget_fish_released_image_size">81dp</dimen>
+    <dimen name="widget_press_ring_size">92dp</dimen>
     <dimen name="widget_count_badge_height">24dp</dimen>
     <dimen name="widget_count_badge_min_width">40dp</dimen>
     <dimen name="widget_count_badge_corner_radius">12dp</dimen>

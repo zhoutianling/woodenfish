@@ -23,7 +23,7 @@ class TapSoundPlayer(context: Context) {
         soundPool.setOnLoadCompleteListener { _, sampleId, status ->
             soundReady = sampleId == soundId && status == LOAD_SUCCESS
         }
-        soundId = soundPool.load(appContext, R.raw.muyu, SOUND_PRIORITY)
+        soundId = soundPool.load(appContext, R.raw.muyu2, SOUND_PRIORITY)
     }
 
     fun play() {
