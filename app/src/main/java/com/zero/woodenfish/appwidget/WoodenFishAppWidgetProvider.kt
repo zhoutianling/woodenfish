@@ -81,8 +81,8 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
     companion object {
         private const val ACTION_WIDGET_TAP = "com.zero.woodenfish.action.WIDGET_TAP"
         private const val REQUEST_CODE_WIDGET_TAP = 20
-        private const val WIDGET_TAP_RELEASE_DELAY_MS = 88L
-        private const val WIDGET_TAP_REST_DELAY_MS = 220L
+        private const val WIDGET_TAP_RECOVERING_DELAY_MS = 80L
+        private const val WIDGET_TAP_REST_DELAY_MS = 200L
         private val feedbackGeneration = AtomicInteger()
 
         fun updateAllWidgets(context: Context, state: WoodenFishState = WoodenFishStateStore(context).load()) {
@@ -117,11 +117,11 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
                         if (generation == feedbackGeneration.get()) {
                             appWidgetManager.updateAppWidget(
                                 appWidgetIds,
-                                buildRemoteViews(context, state, WidgetTapFrame.RELEASED)
+                                buildRemoteViews(context, state, WidgetTapFrame.RECOVERING)
                             )
                         }
                     },
-                    WIDGET_TAP_RELEASE_DELAY_MS
+                    WIDGET_TAP_RECOVERING_DELAY_MS
                 )
                 postDelayed(
                     {
@@ -170,16 +170,16 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
                     if (tapFrame == WidgetTapFrame.PRESSED) View.VISIBLE else View.INVISIBLE
                 )
                 setViewVisibility(
-                    R.id.widget_fish_released_image,
-                    if (tapFrame == WidgetTapFrame.RELEASED) View.VISIBLE else View.INVISIBLE
+                    R.id.widget_fish_recovering_image,
+                    if (tapFrame == WidgetTapFrame.RECOVERING) View.VISIBLE else View.INVISIBLE
                 )
                 setViewVisibility(
                     R.id.widget_merit_pressed_text,
                     if (tapFrame == WidgetTapFrame.PRESSED) View.VISIBLE else View.INVISIBLE
                 )
                 setViewVisibility(
-                    R.id.widget_merit_released_text,
-                    if (tapFrame == WidgetTapFrame.RELEASED) View.VISIBLE else View.INVISIBLE
+                    R.id.widget_merit_recovering_text,
+                    if (tapFrame == WidgetTapFrame.RECOVERING) View.VISIBLE else View.INVISIBLE
                 )
                 setContentDescription(
                     R.id.widget_root,
@@ -205,5 +205,5 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
 private enum class WidgetTapFrame {
     RESTING,
     PRESSED,
-    RELEASED
+    RECOVERING
 }
