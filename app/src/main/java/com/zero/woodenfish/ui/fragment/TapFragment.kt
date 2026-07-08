@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.zero.woodenfish.R
@@ -22,14 +21,8 @@ class TapFragment : Fragment() {
     private var syncingControls = false
     private var lastHandledEventId = 0L
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return FragmentTapBinding.inflate(inflater, container, false)
-            .also { binding = it }
-            .root
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        return FragmentTapBinding.inflate(inflater, container, false).also { binding = it }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,7 +42,6 @@ class TapFragment : Fragment() {
         currentBinding.fishStage.isClickable = true
         currentBinding.fishStage.isFocusable = true
         currentBinding.fishStage.setOnClickListener { viewModel.onManualTap() }
-        currentBinding.manualTapButton.setOnClickListener { viewModel.onManualTap() }
         currentBinding.autoSwitch.setOnCheckedChangeListener { _, checked ->
             if (!syncingControls) viewModel.onAutoTapEnabledChanged(checked)
         }

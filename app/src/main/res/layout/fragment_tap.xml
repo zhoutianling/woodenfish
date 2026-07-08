@@ -28,41 +28,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/today_label_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/section_top_spacing"
-            android:text="@string/today_taps"
-            android:textColor="@color/text_secondary"
-            android:textSize="@dimen/label_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tap_title_text" />
-
-        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/today_count_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/section_top_spacing"
             android:fontFamily="sans-serif-black"
             android:includeFontPadding="false"
             android:textColor="@color/text_primary"
             android:textSize="@dimen/counter_large_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/today_label_text"
+            app:layout_constraintTop_toBottomOf="@id/tap_title_text"
             tools:text="@string/preview_today_count" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/merit_subtitle_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_8"
-            android:text="@string/peace_merit"
-            android:textColor="@color/text_secondary"
-            android:textSize="@dimen/settings_title_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/today_count_text" />
 
         <FrameLayout
             android:id="@+id/fish_stage"
@@ -73,7 +50,7 @@
             android:clipToPadding="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/merit_subtitle_text">
+            app:layout_constraintTop_toBottomOf="@id/today_count_text">
 
             <View
                 android:layout_width="@dimen/fish_orbit_large_size"
@@ -118,23 +95,6 @@
                 android:visibility="invisible" />
         </FrameLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/manual_tap_button"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/primary_button_height"
-            android:layout_marginTop="@dimen/spacing_12"
-            android:backgroundTint="@color/accent_quiet"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/manual_tap"
-            android:textColor="@color/accent_on"
-            android:textSize="@dimen/button_text_size"
-            app:cornerRadius="28dp"
-            app:elevation="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fish_stage"
-            app:rippleColor="@color/primary_button_ripple" />
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/auto_chip"
             style="@style/Widget.WoodenFish.Card.Chip"
@@ -142,9 +102,11 @@
             android:layout_height="@dimen/chip_height"
             android:layout_marginTop="@dimen/spacing_16"
             android:layout_marginEnd="@dimen/spacing_7"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/auto_interval_card"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/manual_tap_button">
+            app:layout_constraintTop_toBottomOf="@id/fish_stage"
+            app:layout_constraintVertical_bias="1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -187,6 +149,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/chip_height"
             android:layout_marginStart="@dimen/spacing_7"
+            app:layout_constraintBottom_toBottomOf="@id/auto_chip"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/auto_chip"
             app:layout_constraintTop_toTopOf="@id/auto_chip">
