@@ -22,4 +22,8 @@
     <color name="bottom_navigation_active_indicator">#18101010</color>
     <color name="primary_button_ripple">#22FFFFFF</color>
     <color name="slider_halo">#22000000</color>
+    <color name="switch_thumb_checked">#FFFFFFFF</color>
+    <color name="switch_thumb_unchecked">#FF656565</color>
+    <color name="switch_track_checked">#FF171717</color>
+    <color name="switch_track_unchecked">#FFE0E0DA</color>
 </resources>
