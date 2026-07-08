@@ -49,28 +49,12 @@
             android:visibility="invisible" />
 
         <TextView
-            android:id="@+id/widget_merit_pressed_text"
+            android:id="@+id/widget_merit_rising_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top"
-            android:layout_marginTop="@dimen/widget_merit_pressed_text_margin_top"
-            android:alpha="0.9"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="@string/merit_plus"
-            android:textAlignment="center"
-            android:textColor="@color/widget_on_background"
-            android:textSize="@dimen/widget_merit_text_size"
-            android:visibility="invisible" />
-
-        <TextView
-            android:id="@+id/widget_merit_recovering_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|top"
-            android:layout_marginTop="@dimen/widget_merit_recovering_text_margin_top"
-            android:alpha="0.5"
+            android:layout_marginTop="@dimen/widget_merit_rising_text_margin_top"
+            android:alpha="0.78"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:includeFontPadding="false"
@@ -86,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top"
             android:layout_marginTop="@dimen/widget_merit_fading_text_margin_top"
-            android:alpha="0.18"
+            android:alpha="0.28"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:includeFontPadding="false"

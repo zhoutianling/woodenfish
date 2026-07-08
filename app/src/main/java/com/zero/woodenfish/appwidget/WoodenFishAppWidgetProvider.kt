@@ -81,9 +81,9 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
     companion object {
         private const val ACTION_WIDGET_TAP = "com.zero.woodenfish.action.WIDGET_TAP"
         private const val REQUEST_CODE_WIDGET_TAP = 20
-        private const val WIDGET_TAP_RISING_DELAY_MS = 72L
-        private const val WIDGET_TAP_FADING_DELAY_MS = 160L
-        private const val WIDGET_TAP_REST_DELAY_MS = 300L
+        private const val WIDGET_TAP_RISING_DELAY_MS = 64L
+        private const val WIDGET_TAP_FADING_DELAY_MS = 172L
+        private const val WIDGET_TAP_REST_DELAY_MS = 308L
         private val feedbackGeneration = AtomicInteger()
 
         fun updateAllWidgets(context: Context, state: WoodenFishState = WoodenFishStateStore(context).load()) {
@@ -190,11 +190,7 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
                     if (tapFrame == WidgetTapFrame.RISING) View.VISIBLE else View.INVISIBLE
                 )
                 setViewVisibility(
-                    R.id.widget_merit_pressed_text,
-                    if (tapFrame == WidgetTapFrame.PRESSED) View.VISIBLE else View.INVISIBLE
-                )
-                setViewVisibility(
-                    R.id.widget_merit_recovering_text,
+                    R.id.widget_merit_rising_text,
                     if (tapFrame == WidgetTapFrame.RISING) View.VISIBLE else View.INVISIBLE
                 )
                 setViewVisibility(
