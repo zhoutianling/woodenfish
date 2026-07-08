@@ -81,8 +81,9 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
     companion object {
         private const val ACTION_WIDGET_TAP = "com.zero.woodenfish.action.WIDGET_TAP"
         private const val REQUEST_CODE_WIDGET_TAP = 20
-        private const val WIDGET_TAP_RECOVERING_DELAY_MS = 70L
-        private const val WIDGET_TAP_REST_DELAY_MS = 200L
+        private const val WIDGET_TAP_RISING_DELAY_MS = 72L
+        private const val WIDGET_TAP_FADING_DELAY_MS = 160L
+        private const val WIDGET_TAP_REST_DELAY_MS = 300L
         private val feedbackGeneration = AtomicInteger()
 
         fun updateAllWidgets(context: Context, state: WoodenFishState = WoodenFishStateStore(context).load()) {
@@ -117,11 +118,22 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
                         if (generation == feedbackGeneration.get()) {
                             appWidgetManager.updateAppWidget(
                                 appWidgetIds,
-                                buildRemoteViews(context, state, WidgetTapFrame.RECOVERING)
+                                buildRemoteViews(context, state, WidgetTapFrame.RISING)
                             )
                         }
                     },
-                    WIDGET_TAP_RECOVERING_DELAY_MS
+                    WIDGET_TAP_RISING_DELAY_MS
+                )
+                postDelayed(
+                    {
+                        if (generation == feedbackGeneration.get()) {
+                            appWidgetManager.updateAppWidget(
+                                appWidgetIds,
+                                buildRemoteViews(context, state, WidgetTapFrame.FADING)
+                            )
+                        }
+                    },
+                    WIDGET_TAP_FADING_DELAY_MS
                 )
                 postDelayed(
                     {
@@ -163,7 +175,11 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
                 setTextViewText(R.id.widget_count_text, countText)
                 setViewVisibility(
                     R.id.widget_fish_image,
-                    if (tapFrame == WidgetTapFrame.RESTING) View.VISIBLE else View.INVISIBLE
+                    if (tapFrame == WidgetTapFrame.RESTING || tapFrame == WidgetTapFrame.FADING) {
+                        View.VISIBLE
+                    } else {
+                        View.INVISIBLE
+                    }
                 )
                 setViewVisibility(
                     R.id.widget_fish_pressed_image,
@@ -171,7 +187,7 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
                 )
                 setViewVisibility(
                     R.id.widget_fish_recovering_image,
-                    if (tapFrame == WidgetTapFrame.RECOVERING) View.VISIBLE else View.INVISIBLE
+                    if (tapFrame == WidgetTapFrame.RISING) View.VISIBLE else View.INVISIBLE
                 )
                 setViewVisibility(
                     R.id.widget_merit_pressed_text,
@@ -179,13 +195,19 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
                 )
                 setViewVisibility(
                     R.id.widget_merit_recovering_text,
-                    if (tapFrame == WidgetTapFrame.RECOVERING) View.VISIBLE else View.INVISIBLE
+                    if (tapFrame == WidgetTapFrame.RISING) View.VISIBLE else View.INVISIBLE
+                )
+                setViewVisibility(
+                    R.id.widget_merit_fading_text,
+                    if (tapFrame == WidgetTapFrame.FADING) View.VISIBLE else View.INVISIBLE
                 )
                 setContentDescription(
                     R.id.widget_root,
                     context.getString(R.string.widget_tap_content_description, state.todayCount)
                 )
-                setOnClickPendingIntent(R.id.widget_root, buildTapPendingIntent(context))
+                val tapPendingIntent = buildTapPendingIntent(context)
+                setOnClickPendingIntent(R.id.widget_root, tapPendingIntent)
+                setOnClickPendingIntent(R.id.widget_card, tapPendingIntent)
             }
         }
 
@@ -205,5 +227,6 @@ class WoodenFishAppWidgetProvider : AppWidgetProvider() {
 private enum class WidgetTapFrame {
     RESTING,
     PRESSED,
-    RECOVERING
+    RISING,
+    FADING
 }
