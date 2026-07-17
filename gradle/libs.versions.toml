@@ -11,6 +11,8 @@ constraintlayout = "2.1.4"
 lifecycle = "2.6.2"
 navigation = "2.7.7"
 fragment = "1.6.2"
+stringfog = "5.3.3"
+aabresguard = "v0.1.13"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,6 +27,8 @@ androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecy
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
+stringfog-xor = { group = "com.github.mobcoding.StringFog", name = "xor", version.ref = "stringfog" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+aab-resguard = { id = "com.bytedance.android.aabResGuard", version.ref = "aabresguard" }

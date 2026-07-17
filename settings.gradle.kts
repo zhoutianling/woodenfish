@@ -8,7 +8,19 @@ pluginManagement {
             }
         }
         mavenCentral()
+        maven(url = "https://jitpack.io")
         gradlePluginPortal()
+    }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "com.bytedance.android.aabResGuard") {
+                val version = requested.version
+                    ?: error("AabResGuard plugin version is required")
+                useModule(
+                    "com.github.mobcoding.AabResGuard:aabresguard-plugin:$version"
+                )
+            }
+        }
     }
 }
 plugins {
@@ -19,9 +31,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven(url = "https://jitpack.io")
     }
 }
 
 rootProject.name = "Wooden Fish"
 include(":app")
- 

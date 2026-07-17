@@ -1,5 +1,22 @@
+import com.bytedance.android.plugin.extensions.AabResGuardExtension
+import com.github.megatronking.stringfog.plugin.StringFogExtension
+import com.github.megatronking.stringfog.plugin.StringFogMode
+
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.aab.resguard)
+}
+
+apply(plugin = "stringfog")
+
+configure<StringFogExtension> {
+    implementation = "com.github.megatronking.stringfog.xor.StringFogImpl"
+    mode = StringFogMode.bytes
+}
+
+configure<AabResGuardExtension> {
+    enableObfuscate = true
+    obfuscatedBundleFileName = "woodenfish-obfuscated.aab"
 }
 
 android {
@@ -32,6 +49,7 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -53,6 +71,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.material)
+    implementation(libs.stringfog.xor)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
