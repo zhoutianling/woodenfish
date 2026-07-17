@@ -16,7 +16,8 @@ configure<StringFogExtension> {
 
 configure<AabResGuardExtension> {
     enableObfuscate = true
-    obfuscatedBundleFileName = "woodenfish-obfuscated.aab"
+    mappingFile = file("mapping.txt").toPath()
+    obfuscatedBundleFileName = "app_build.aab"
 }
 
 android {
