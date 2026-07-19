@@ -32,3 +32,4 @@ stringfog-xor = { group = "com.github.mobcoding.StringFog", name = "xor", versio
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 aab-resguard = { id = "com.bytedance.android.aabResGuard", version.ref = "aabresguard" }
+stringfog = { id = "stringfog" }

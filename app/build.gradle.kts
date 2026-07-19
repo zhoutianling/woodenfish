@@ -5,9 +5,9 @@ import com.github.megatronking.stringfog.plugin.StringFogMode
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.aab.resguard)
+    alias(libs.plugins.stringfog)
 }
 
-apply(plugin = "stringfog")
 
 configure<StringFogExtension> {
     implementation = "com.github.megatronking.stringfog.xor.StringFogImpl"
