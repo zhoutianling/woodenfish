@@ -12,7 +12,7 @@ lifecycle = "2.6.2"
 navigation = "2.7.7"
 fragment = "1.6.2"
 stringfog = "5.3.3"
-aabresguard = "v0.1.15"
+aabresguard = "v0.1.17"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
